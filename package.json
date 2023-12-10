@@ -1,0 +1,29 @@
+{
+  "name": "nxtgenAI-test-suite",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "cypress": "cypress open",
+    "html-report": "cypress run --spec cypress/e2e/sanity-spec.cy.js --browser chrome --headed"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomer157/nxtgenAI-test-suite.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tomer157/nxtgenAI-test-suite/issues"
+  },
+  "homepage": "https://github.com/tomer157/nxtgenAI-test-suite#readme",
+  "devDependencies": {
+    "cypress": "^13.6.1",
+    "cypress-mochawesome-reporter": "^3.7.0",
+    "cypress-wait-until": "^3.0.1",
+    "cypress-xpath": "^2.0.1",
+    "mochawesome": "^6.3.1",
+    "mochawesome-merge": "^4.2.0"
+  }
+}
