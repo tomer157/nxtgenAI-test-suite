@@ -37,3 +37,20 @@ Cypress.Commands.add('closeWindows', () => {
     win.close();
   });
 });
+
+// command that extract form values after they typed
+Cypress.Commands.add('extractFormValues', (payload, targetObjectName) => {
+  const regex = /name="([^\n]+)"\s*\n*\s*\n*([^-\n]+)/g;
+  const extractedValues = [];
+  let match;
+
+  while ((match = regex.exec(payload)) !== null) {
+    const [, name, value] = match;
+    extractedValues.push({ name, value: value.trim() });
+  }
+
+  const targetObject = extractedValues.find(
+    (obj) => obj.name === targetObjectName
+  );
+  return targetObject;
+});

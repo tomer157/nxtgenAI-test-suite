@@ -1,0 +1,18 @@
+{
+    "firstName": "vfb-5",
+    "lastName": "vfb-7",
+    "gender": "vfb-31",
+    "addressSuite": "vfb-13[address]",
+    "addressStreet":"vfb-13[address-2]",
+    "addressCity":"vfb-13[zip]",
+    "addressCountry":"vfb-13[country]",
+    "email":"vfb-14",
+    "date":"vfb-18",
+    "hour":"vfb-16[hour]",
+    "minutes":"vfb-16[min]",
+    "phone":"vfb-19",
+    "course":"vfb-20[]",
+    "catchPhrase":"vfb-23"
+
+
+}
