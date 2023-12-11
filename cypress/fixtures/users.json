@@ -1,0 +1,54 @@
+{ 
+  "verificationPageURL": "https://nxtgenaiacademy.com/dynamictransaction/",
+  "user1":{
+    "id": 1,
+    "firstName": "Leanne",
+    "lastName": "Grahm",
+    "username": "Bret",
+    "date": "08/15/2023",
+    "email": "Sincere@april.biz",
+    "country": "Israel",
+    "address": {
+      "street": "Kulas Light",
+      "suite": "Apt. 556",
+      "city": "Gwenborough",
+      "zipcode": "92998-3874",
+      "geo": {
+        "lat": "-37.3159",
+        "lng": "81.1496"
+      }
+    },
+    "phone": "1736803156442",
+    "website": "hildegard.org",
+    "company": {
+      "name": "Romaguera-Crona",
+      "catchPhrase": "Multi-layered client-server neural-net",
+      "bs": "harness real-time e-markets"
+    }
+  },
+  "user2":{
+    "id": 2,
+    "country": "Afghanistan",
+    "firstName": "Ervin Howell",
+    "date": "08/15/2023",
+    "lastName": "Antonette",
+    "email": "Shanna@melissa.tv",
+    "address": {
+      "street": "Victor Plains",
+      "suite": "Suite 879",
+      "city": "Wisokyburgh",
+      "zipcode": "90566-7771",
+      "geo": {
+        "lat": "-43.9509",
+        "lng": "-34.4618"
+      }
+    },
+    "phone": "692659309125",
+    "website": "anastasia.net",
+    "company": {
+      "name": "Deckow-Crist",
+      "catchPhrase": "Proactive didactic contingency",
+      "bs": "synergize scalable supply-chains"
+    }
+  }
+}
