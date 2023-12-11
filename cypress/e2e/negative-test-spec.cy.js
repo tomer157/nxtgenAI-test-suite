@@ -131,8 +131,6 @@ it('try to submit form with false typed fields[string, int]', () => {
     mainPage.getSubmitBtn().click();
     cy.wait(555);
 
-    // enter chars instead of numbers in phone input field.
-    mainPage.getMobileNumberInput().type('aaaddffsdfsdf');
     cy.contains('label[for="vfb-19"]', 'Please enter only digits.').should(
       'exist'
     );
