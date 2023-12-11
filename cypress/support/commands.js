@@ -22,13 +22,18 @@
 //
 // -- This is a parent command --
 Cypress.Commands.add('deleteCookies', () => {
-  cy.clearCookie('__stripe_mid');
-  cy.clearCookie('__stripe_sid');
+  cy.clearCookies();
 });
 
-Cypress.Commands.add('selectCountry', (country) => {
-  const countryOption = `//li[contains(@class, "select2-results__option") and text()="${country}"]`;
-  cy.xpath(countryOption).click();
+Cypress.Commands.add('clearStorage', () => {
+  cy.clearLocalStorage();
+  cy.window().then((win) => {
+    win.sessionStorage.clear();
+  });
 });
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('closeWindows', () => {
+  cy.window().then((win) => {
+    win.close();
+  });
+});

@@ -27,31 +27,56 @@ class MainPage {
       this.seleniumCheckbox = 'input#vfb-20-0';
       this.uftCheckbox = 'input#vfb-20-1';
       this.testNgCheckbox = 'input#vfb-20-2';
-      this.codeJavaCheckbox = 'input#vfb-20-3';
+      this.coreJavaCheckbox = 'input#vfb-20-3';
       this.functionalTestCheckbox = 'input#vfb-20-4';
       this.othersCheckbox = 'input#vfb-20-5';
       this.queryTextArea = 'textarea#vfb-23';
       this.verificationLabel = '//span//label[contains(text(), "Example")]';
       this.verificationInput = 'input#vfb-3';
       this.submitBtn = 'input#vfb-4';
+      this.form = 'form#registration-1';
 
       MainPage.instance = this;
     }
     return MainPage.instance;
   }
 
+  getForm() {
+    return cy.get(this.form);
+  }
   getSubmitBtn() {
     return cy.get(this.submitBtn);
+  }
+
+  getOthersCheckbox() {
+    return cy.get(this.othersCheckbox);
+  }
+
+  getCodeJavaCheckbox() {
+    return cy.get(this.coreJavaCheckbox);
+  }
+
+  getUtfCheckBox() {
+    return cy.get(this.uftCheckbox);
   }
 
   getVerificationInput() {
     return cy.get(this.verificationInput);
   }
 
+  getOtherRadioBtn() {
+    return cy.get(this.otherRadioBtn);
+  }
+  getTestNgCheckbox() {
+    return cy.get(this.testNgCheckbox);
+  }
   getVerificationLabel() {
     return cy.xpath(this.verificationLabel);
   }
 
+  getFemaleRadioBtn() {
+    return cy.get(this.femaleRadioBtn);
+  }
   getQueryTextArea() {
     return cy.get(this.queryTextArea);
   }
