@@ -101,67 +101,67 @@ describe('bonus tests  ', () => {
           expect(targetObject.value).to.eq(userData.user2.firstName);
         });
 
-        targetObjectName = 'vfb-7';
+        targetObjectName = payloadSchema.lastName;
         cy.extractFormValues(payload, targetObjectName).then((targetObject) => {
           expect(targetObject.value).to.eq(userData.user2.lastName);
         });
 
-        targetObjectName = 'vfb-31';
+        targetObjectName = payloadSchema.gender;
         cy.extractFormValues(payload, targetObjectName).then((targetObject) => {
           expect(targetObject.value).to.eq(userData.user2.gender);
         });
 
-        targetObjectName = 'vfb-13[address]';
+        targetObjectName = payloadSchema.addressSuite;
         cy.extractFormValues(payload, targetObjectName).then((targetObject) => {
           expect(targetObject.value).to.eq(userData.user2.address.suite);
         });
 
-        targetObjectName = 'vfb-13[address-2]';
+        targetObjectName = payloadSchema.addressStreet;
         cy.extractFormValues(payload, targetObjectName).then((targetObject) => {
           expect(targetObject.value).to.eq(userData.user2.address.street);
         });
 
-        targetObjectName = 'vfb-13[zip]';
+        targetObjectName = payloadSchema.addressCity;
         cy.extractFormValues(payload, targetObjectName).then((targetObject) => {
           expect(targetObject.value).to.eq(userData.user2.address.city);
         });
 
-        targetObjectName = 'vfb-13[country]';
+        targetObjectName = payloadSchema.addressCountry;
         cy.extractFormValues(payload, targetObjectName).then((targetObject) => {
           expect(targetObject.value).to.eq(userData.user2.country);
         });
 
-        targetObjectName = 'vfb-14';
+        targetObjectName = payloadSchema.email;
         cy.extractFormValues(payload, targetObjectName).then((targetObject) => {
           expect(targetObject.value).to.eq(userData.user2.email);
         });
 
-        targetObjectName = 'vfb-18';
+        targetObjectName = payloadSchema.date;
         cy.extractFormValues(payload, targetObjectName).then((targetObject) => {
           expect(targetObject.value).to.eq(userData.user2.date);
         });
 
-        targetObjectName = 'vfb-16[hour]';
+        targetObjectName = payloadSchema.hour;
         cy.extractFormValues(payload, targetObjectName).then((targetObject) => {
           expect(targetObject.value).to.eq(userData.user2.hour);
         });
 
-        targetObjectName = 'vfb-16[min]';
+        targetObjectName = payloadSchema.minutes;
         cy.extractFormValues(payload, targetObjectName).then((targetObject) => {
           expect(targetObject.value).to.eq(userData.user2.minutes);
         });
 
-        targetObjectName = 'vfb-19';
+        targetObjectName = payloadSchema.phone;
         cy.extractFormValues(payload, targetObjectName).then((targetObject) => {
           expect(targetObject.value).to.eq(userData.user2.phone);
         });
 
-        targetObjectName = 'vfb-20[]';
+        targetObjectName = payloadSchema.course;
         cy.extractFormValues(payload, targetObjectName).then((targetObject) => {
           expect(targetObject.value).to.eq(userData.user2.course);
         });
 
-        targetObjectName = 'vfb-23';
+        targetObjectName = payloadSchema.catchPhrase;
         cy.extractFormValues(payload, targetObjectName).then((targetObject) => {
           expect(targetObject.value).to.eq(userData.user2.company.catchPhrase);
         });

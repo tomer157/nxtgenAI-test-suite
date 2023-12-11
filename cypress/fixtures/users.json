@@ -2,6 +2,8 @@
   "verificationPageURL": "https://nxtgenaiacademy.com/dynamictransaction/",
   "user1":{
     "id": 1,
+    "hour": "01",
+    "minutes":"15",
     "firstName": "Leanne",
     "lastName": "Grahm",
     "username": "Bret",
