@@ -2,19 +2,25 @@ import mainPage from '../support/pages/MainPage';
 require('cypress-xpath');
 
 let userData;
+let payloadSchema;
 
 beforeEach(() => {
   cy.visit('/');
   cy.deleteCookies();
 
-  // Load fixture data and save it to the userData variable
+  // Load fixture data and save it to the userData and payloadschema variable
   cy.fixture('users').then((data) => {
     userData = data;
   });
+
+  cy.fixture('payloadData').then((data) => {
+    payloadSchema = data;
+  });
 });
 
-describe('main page - negative tests ', () => {
-  it('sanity form test - enter user2 valid inputs to the form as female', () => {
+describe('bonus tests  ', () => {
+  it('try to sniff and intercept a valid form submission and query the packet payload', () => {
+    // first initiate listener, then populate and submit the form. lastly process the request payload.
     cy.intercept('/demo-site/').as('submit-intercept');
 
     cy.fixture('users').then((userData) => {
@@ -88,25 +94,77 @@ describe('main page - negative tests ', () => {
       cy.wait('@submit-intercept').then(({ request }) => {
         const payload = request.body;
 
-        // Define a regular expression to match the values
-        const regex = /name="([^\n]+)"\s*\n*\s*\n*([^-\n]+)/g;
+        // assert payload fields based on user2 fixture json...
+        let targetObjectName = payloadSchema.firstName;
+        cy.extractFormValues(payload, targetObjectName).then((targetObject) => {
+          console.log(targetObject);
+          expect(targetObject.value).to.eq(userData.user2.firstName);
+        });
 
-        // Extract values using the regular expression
-        const extractedValues = [];
-        let match;
-        while ((match = regex.exec(payload)) !== null) {
-          const [, name, value] = match;
-          extractedValues.push({ name, value: value.trim() });
-        }
+        targetObjectName = 'vfb-7';
+        cy.extractFormValues(payload, targetObjectName).then((targetObject) => {
+          expect(targetObject.value).to.eq(userData.user2.lastName);
+        });
 
-        console.log(extractedValues);
-        const targetObjectName = 'vfb-7';
-        const targetObject = extractedValues.find(
-          (obj) => obj.name === targetObjectName
-        );
-        console.log(targetObject);
-        expect(targetObject.value).to.equal(userData.user2.lastName);
-        // continue the rest of all the other fields in the form
+        targetObjectName = 'vfb-31';
+        cy.extractFormValues(payload, targetObjectName).then((targetObject) => {
+          expect(targetObject.value).to.eq(userData.user2.gender);
+        });
+
+        targetObjectName = 'vfb-13[address]';
+        cy.extractFormValues(payload, targetObjectName).then((targetObject) => {
+          expect(targetObject.value).to.eq(userData.user2.address.suite);
+        });
+
+        targetObjectName = 'vfb-13[address-2]';
+        cy.extractFormValues(payload, targetObjectName).then((targetObject) => {
+          expect(targetObject.value).to.eq(userData.user2.address.street);
+        });
+
+        targetObjectName = 'vfb-13[zip]';
+        cy.extractFormValues(payload, targetObjectName).then((targetObject) => {
+          expect(targetObject.value).to.eq(userData.user2.address.city);
+        });
+
+        targetObjectName = 'vfb-13[country]';
+        cy.extractFormValues(payload, targetObjectName).then((targetObject) => {
+          expect(targetObject.value).to.eq(userData.user2.country);
+        });
+
+        targetObjectName = 'vfb-14';
+        cy.extractFormValues(payload, targetObjectName).then((targetObject) => {
+          expect(targetObject.value).to.eq(userData.user2.email);
+        });
+
+        targetObjectName = 'vfb-18';
+        cy.extractFormValues(payload, targetObjectName).then((targetObject) => {
+          expect(targetObject.value).to.eq(userData.user2.date);
+        });
+
+        targetObjectName = 'vfb-16[hour]';
+        cy.extractFormValues(payload, targetObjectName).then((targetObject) => {
+          expect(targetObject.value).to.eq(userData.user2.hour);
+        });
+
+        targetObjectName = 'vfb-16[min]';
+        cy.extractFormValues(payload, targetObjectName).then((targetObject) => {
+          expect(targetObject.value).to.eq(userData.user2.minutes);
+        });
+
+        targetObjectName = 'vfb-19';
+        cy.extractFormValues(payload, targetObjectName).then((targetObject) => {
+          expect(targetObject.value).to.eq(userData.user2.phone);
+        });
+
+        targetObjectName = 'vfb-20[]';
+        cy.extractFormValues(payload, targetObjectName).then((targetObject) => {
+          expect(targetObject.value).to.eq(userData.user2.course);
+        });
+
+        targetObjectName = 'vfb-23';
+        cy.extractFormValues(payload, targetObjectName).then((targetObject) => {
+          expect(targetObject.value).to.eq(userData.user2.company.catchPhrase);
+        });
       });
     });
   });

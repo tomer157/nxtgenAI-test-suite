@@ -28,11 +28,15 @@
   },
   "user2":{
     "id": 2,
+    "gender": "Female",
+    "hour": "01",
+    "minutes":"15",
     "country": "Afghanistan",
     "firstName": "Ervin Howell",
     "date": "08/15/2023",
     "lastName": "Antonette",
     "email": "Shanna@melissa.tv",
+    "course": "TestNG",
     "address": {
       "street": "Victor Plains",
       "suite": "Suite 879",
