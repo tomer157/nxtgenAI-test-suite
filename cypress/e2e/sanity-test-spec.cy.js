@@ -19,6 +19,7 @@ describe('test main page form  submit valid data ', () => {
 
   it('sanity ui widgets test', () => {
     mainPage.getForm().should('exist');
+    mainPage.getAvatarImg().should('exist');
     mainPage.getOtherRadioBtn().check().should('be.checked');
     mainPage.getUtfCheckBox().check().should('be.checked');
     mainPage.getCodeJavaCheckbox().check().should('be.checked');
