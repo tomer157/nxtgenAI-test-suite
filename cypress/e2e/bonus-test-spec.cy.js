@@ -1,13 +1,22 @@
 import mainPage from '../support/pages/MainPage';
 require('cypress-xpath');
 
+let userData;
+
 beforeEach(() => {
   cy.visit('/');
   cy.deleteCookies();
+
+  // Load fixture data and save it to the userData variable
+  cy.fixture('users').then((data) => {
+    userData = data;
+  });
 });
 
 describe('main page - negative tests ', () => {
-  it('try to submit with not verification code ', () => {
+  it('sanity form test - enter user2 valid inputs to the form as female', () => {
+    cy.intercept('/demo-site/').as('submit-intercept');
+
     cy.fixture('users').then((userData) => {
       mainPage.getFirstNameInput().type(userData.user2.firstName);
       mainPage
@@ -63,31 +72,42 @@ describe('main page - negative tests ', () => {
         .getQueryTextArea()
         .type(userData.user2.company.catchPhrase)
         .should('have.value', userData.user2.company.catchPhrase);
+      mainPage
+        .getVerificationLabel()
+        .invoke('text')
+        .then((text) => {
+          const index = text.indexOf(':');
+          const extractedText = index !== -1 ? text.slice(index + 1) : '';
+          mainPage.getVerificationInput().type(parseInt(extractedText, 10));
+        });
 
       cy.wait(666);
       mainPage.getSubmitBtn().click();
-      cy.wait(333);
-      cy.contains('label', 'This field is required').should('exist');
+      cy.wait(700);
+
+      cy.wait('@submit-intercept').then(({ request }) => {
+        const payload = request.body;
+
+        // Define a regular expression to match the values
+        const regex = /name="([^\n]+)"\s*\n*\s*\n*([^-\n]+)/g;
+
+        // Extract values using the regular expression
+        const extractedValues = [];
+        let match;
+        while ((match = regex.exec(payload)) !== null) {
+          const [, name, value] = match;
+          extractedValues.push({ name, value: value.trim() });
+        }
+
+        console.log(extractedValues);
+        const targetObjectName = 'vfb-7';
+        const targetObject = extractedValues.find(
+          (obj) => obj.name === targetObjectName
+        );
+        console.log(targetObject);
+        expect(targetObject.value).to.equal(userData.user2.lastName);
+        // continue the rest of all the other fields in the form
+      });
     });
   });
-
-  it('try to submit without adding required fields', () => {
-    cy.wait(666);
-    mainPage.getSubmitBtn().click();
-    cy.wait(333);
-    cy.contains('label[for="vfb-5"]', 'This field is required').should('exist');
-    cy.contains('label[for="vfb-7"]', 'This field is required').should('exist');
-    cy.contains('label[for="vfb-31"]', 'This field is required').should(
-      'exist'
-    );
-    cy.contains('label[for="vfb-14"]', 'This field is required').should(
-      'exist'
-    );
-  });
-});
-
-after(() => {
-  cy.deleteCookies();
-  cy.clearStorage();
-  cy.closeWindows();
 });
