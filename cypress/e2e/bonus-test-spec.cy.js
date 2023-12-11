@@ -169,3 +169,10 @@ describe('bonus tests  ', () => {
     });
   });
 });
+
+// After hook to delete page resources and cleanup
+after(() => {
+  cy.deleteCookies();
+  cy.clearStorage();
+  cy.closeWindows();
+});
