@@ -26,6 +26,8 @@ class MainPage {
       this.mobileNumberInput = 'input#vfb-19';
       this.seleniumCheckbox = 'input#vfb-20-0';
       this.uftCheckbox = 'input#vfb-20-1';
+      this.avatarImage =
+        '//img[@class="attachment-large size-large wp-image-4161"]';
       this.testNgCheckbox = 'input#vfb-20-2';
       this.coreJavaCheckbox = 'input#vfb-20-3';
       this.functionalTestCheckbox = 'input#vfb-20-4';
@@ -39,6 +41,10 @@ class MainPage {
       MainPage.instance = this;
     }
     return MainPage.instance;
+  }
+
+  getAvatarImg() {
+    return cy.xpath(this.avatarImage);
   }
 
   getForm() {

@@ -1,30 +1,36 @@
 import mainPage from '../support/pages/MainPage';
 require('cypress-xpath');
 
+// before each test hook to enter test-page url
 beforeEach(() => {
   cy.visit('/');
   cy.deleteCookies();
 });
 
 describe('test main page form  submit valid data ', () => {
+  // Test case for validating viewport size
   it('sanity should have the correct viewport size', () => {
     cy.viewport(1200, 800);
     cy.window().should('have.property', 'innerWidth', 1200);
     cy.window().should('have.property', 'innerHeight', 800);
   });
 
+  // Test case for validating current URL.
   it('sanity should have the correct URL', () => {
     cy.url().should('include', Cypress.config().baseUrl);
   });
 
+  // Test case for validating main page basic ui widgets
   it('sanity ui widgets test', () => {
     mainPage.getForm().should('exist');
+    mainPage.getAvatarImg().should('exist');
     mainPage.getOtherRadioBtn().check().should('be.checked');
     mainPage.getUtfCheckBox().check().should('be.checked');
     mainPage.getCodeJavaCheckbox().check().should('be.checked');
     mainPage.getOthersCheckbox().check().should('be.checked');
   });
 
+  // Test case for entering user1 valid inputs to the form as male
   it('sanity form test - enter user1 valid inputs to the form as male', () => {
     cy.fixture('users').then((userData) => {
       mainPage.getFirstNameInput().type(userData.user1.firstName);
@@ -120,6 +126,7 @@ describe('test main page form  submit valid data ', () => {
     });
   });
 
+  // Test case for entering user2 valid inputs to the form as female
   it('sanity form test - enter user2 valid inputs to the form as female. with different combinations', () => {
     cy.fixture('users').then((userData) => {
       mainPage.getFirstNameInput().type(userData.user2.firstName);
@@ -215,6 +222,7 @@ describe('test main page form  submit valid data ', () => {
     });
   });
 
+  // Test case for entering user2 valid inputs to the form as other
   it('sanity form test - enter user2 valid inputs to the form as other. with different combinations', () => {
     cy.fixture('users').then((userData) => {
       mainPage.getFirstNameInput().type(userData.user2.firstName);
@@ -311,6 +319,7 @@ describe('test main page form  submit valid data ', () => {
   });
 });
 
+// After hook to delete page resources and cleanup
 after(() => {
   cy.deleteCookies();
   cy.clearStorage();

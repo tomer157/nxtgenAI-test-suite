@@ -1,12 +1,14 @@
 import mainPage from '../support/pages/MainPage';
 require('cypress-xpath');
 
+// before each test hook to enter test-page url
 beforeEach(() => {
   cy.visit('/');
   cy.deleteCookies();
 });
 
 describe('main page - negative tests ', () => {
+  // Test case for testing negative scenario to validate non-legal form submission
   it('try to submit without verification code ', () => {
     cy.fixture('users').then((userData) => {
       mainPage.getFirstNameInput().type(userData.user2.firstName);
@@ -86,6 +88,56 @@ describe('main page - negative tests ', () => {
   });
 });
 
+it('try to submit form with false typed fields[string, int]', () => {
+  cy.fixture('users').then((userData) => {
+    mainPage.getFirstNameInput().type(userData.user2.firstName);
+    mainPage.getFirstNameInput().should('have.value', userData.user2.firstName);
+
+    mainPage.getLastNameInput().type(userData.user2.lastName);
+    mainPage.getLastNameInput().should('have.value', userData.user2.lastName);
+
+    mainPage.getAddress().type(userData.user2.address.suite);
+    mainPage.getAddress().should('have.value', userData.user2.address.suite);
+
+    mainPage.getStreetAddress().type(userData.user2.address.street);
+    mainPage
+      .getStreetAddress()
+      .should('have.value', userData.user2.address.street);
+
+    mainPage.getCity().type(userData.user2.address.city);
+    mainPage.getCity().should('have.value', userData.user2.address.city);
+
+    mainPage.getOtherRadioBtn().check();
+    mainPage.getOtherRadioBtn().should('be.checked');
+
+    mainPage.getCountrySelect().select(userData.user2.country, { force: true });
+    mainPage.getCountrySelect().should('have.value', userData.user2.country);
+
+    mainPage.getEmailInput().type(userData.user2.email);
+    mainPage.getEmailInput().should('have.value', userData.user2.email);
+
+    mainPage.getDateOfDemo().type(userData.user2.date);
+    mainPage.getDateOfDemo().should('have.value', userData.user2.date);
+
+    mainPage.getHourDropDown().click();
+    mainPage.getHourContainer().click({ force: true });
+
+    cy.waitUntil(() => mainPage.getHourContainerDropdown().should('exist'));
+
+    // enter chars instead of numbers in phone input field.
+    mainPage.getMobileNumberInput().type('aaaddffsdfsdf');
+
+    cy.wait(666);
+    mainPage.getSubmitBtn().click();
+    cy.wait(555);
+
+    cy.contains('label[for="vfb-19"]', 'Please enter only digits.').should(
+      'exist'
+    );
+  });
+});
+
+// After hook to delete page resources and cleanup
 after(() => {
   cy.deleteCookies();
   cy.clearStorage();
